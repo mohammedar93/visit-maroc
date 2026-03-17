@@ -1,0 +1,229 @@
+
+:root {
+  --morocco-red: #c1272d;
+  --morocco-green: #006233;
+  --white: #ffffff;
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)),
+              url('gros-plan-du-drapeau-ondulant-du-maroc-textures-interessantes_181624-14367.avif') center/cover fixed;
+  direction: rtl;
+  color: white;
+}
+
+
+header {
+  background: linear-gradient(90deg, var(--morocco-red), var(--morocco-green));
+  text-align: center;
+  padding: 30px 0;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  font-weight: 900;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+
+
+.map-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.map-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 90%;
+  max-width: 1200px;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+.main-map {
+  display: block;
+  width: 100%;
+}
+
+.city {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-direction: column-reverse; 
+  align-items: center;
+}
+
+.city-dot {
+  width: 14px;
+  height: 14px;
+ 
+  background: linear-gradient(135deg, var(--morocco-red) 50%, var(--morocco-green) 50%);
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: var(--transition);
+  position: relative;
+}
+
+
+.city-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 100%; height: 100%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: -1;
+  border: 2px solid var(--morocco-red);
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; border-color: var(--morocco-red); }
+  50% { border-color: var(--morocco-green); }
+  100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+}
+
+
+.city span {
+  display: block;
+  margin-bottom: 5px; 
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(3px);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid rgba(255,255,255,0.2);
+  opacity: 1; /* باينة ديما */
+  pointer-events: none;
+}
+
+.city:hover .city-dot {
+  transform: scale(1.4);
+  box-shadow: 0 0 15px var(--white);
+}
+
+
+.modal-state { display: none; }
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.modal-state:checked + .modal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%; height: 100%;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  background-size: cover;
+  background-position: center;
+}
+
+.modal-content::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,.5); 
+}
+
+.modal-content > * { position: relative; z-index: 5; }
+
+
+#tanger + .modal .modal-content { background-image: url('tangier/tanger-chefchaouen-888.jpg'); }
+#tetouan + .modal .modal-content { background-image: url('tetouane/Maroc-Tetouan-2024-03-138.webp'); }
+#chaouen + .modal .modal-content { background-image: url('chechouane/marocco_chefchaouen.jpg'); }
+#fes + .modal .modal-content { background-image: url('fes/tanneries-traditionnelles-medina-fes-maroc-6-600x399.jpg'); }
+#meknes + .modal .modal-content { background-image: url('meknes/Meknes\ medina.jpg'); }
+#rabat + .modal .modal-content { background-image: url('rabat/hassan.jpg'); }
+#casa + .modal .modal-content { background-image: url('CASA/MAARIF.jpg'); }
+#ifrane + .modal .modal-content { background-image: url('IFRAN/Neige_ifrane.jpg'); }
+#marrakech + .modal .modal-content { background-image: url('marakeche/marrakech-piazza-jemaa.jpg'); }
+#essa + .modal .modal-content { background-image: url('essouira/medina.jpg'); }
+#agadir + .modal .modal-content { background-image: url('agadir/telepherique.jpg'); }
+#ouarz + .modal .modal-content { background-image: url('ourzazat/AtlasStudio-2405.jpg'); }
+
+
+.modal-content h2 {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 900;
+  background: linear-gradient(90deg, #fff, var(--morocco-red), var(--morocco-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.modal-content p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  max-width: 850px;
+  background: rgba(0,0,0,.65);
+  padding: 25px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border-right: 5px solid var(--morocco-red);
+  text-align: justify;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.place {
+  background: rgba(255,255,255,.08);
+  padding: 15px;
+  border-radius: 15px;
+  transition: var(--transition);
+}
+
+.place:hover { transform: translateY(-10px); background: rgba(255,255,255,.15); }
+
+.place img { width: 100%; height: 230px; object-fit: cover; border-radius: 10px; }
+
+.close {
+  position: absolute;
+  top: 20px; left: 30px;
+  font-size: 30px;
+  cursor: pointer;
+  background: var(--morocco-red);
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: .3s;
+}
+
+.close:hover { background: var(--morocco-green); }
+
+footer {
+  background: linear-gradient(90deg, var(--morocco-red), var(--morocco-green));
+  padding: 40px;
+  text-align: center;
+  font-weight: bold;
+}
